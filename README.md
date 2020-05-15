@@ -1,7 +1,7 @@
 # Description:
 This plugin you can set an area to dig things just edit in the config
 
-# Review:
+# Peview:
 https://streamable.com/lfcxx8
 
 # Config:
