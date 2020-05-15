@@ -1,6 +1,5 @@
 # Description:
-This plugin you can set an area to dig things just edit in the config\n
-enjoy!
+This plugin you can set an area to dig things just edit in the config
 
 # Review:
 https://streamable.com/lfcxx8
