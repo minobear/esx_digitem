@@ -15,7 +15,7 @@ Citizen.CreateThread(function()
 		for k,v in pairs(Config.Digs) do
 			local count = 0			
 			if #Place == 0 then
-				for i=1, (v.maxSpawn/2) do
+				for i=1, (v.maxSpawn/3) do
 					Wait(100)
 					RandomSpawn(k, v.x, v.y, v.areaRange)
 				end
@@ -25,7 +25,12 @@ Citizen.CreateThread(function()
 						count = count + 1
 					end		
 				end
-				if count < v.maxSpawn then
+				if count == 0 then
+					for i=1, (v.maxSpawn/3) do
+						Wait(100)
+						RandomSpawn(k, v.x, v.y, v.areaRange)
+					end					
+				elseif count < v.maxSpawn then
 					RandomSpawn(k, v.x, v.y, v.areaRange)				
 				end					
 			end
