@@ -1,5 +1,5 @@
 # Description:
-This plugin you can set an area to dig things just edit in the config
+This plugin you can set an area to dig things just edit in the config\n
 enjoy!
 
 # Review:
