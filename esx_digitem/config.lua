@@ -14,7 +14,6 @@ Config.Digs = {
 		x = -2165.57, y = -462.55, areaRange = 8, maxSpawn = 10,
 		breakToolPercent = 30, blips = true, blipName = "蛤蠣挖掘區"
 	},
-	
 --[[
 	{
 		digItem = {"rice", 1}, needTool = "sickle", digLabel = "稻米", toolLabel = "鐮刀",
