@@ -11,6 +11,7 @@ end)
 
 Citizen.CreateThread(function()
 	CreateBlips()
+	Wait(5000)
 	while true do			
 		for k,v in pairs(Config.Digs) do
 			local count = 0			
@@ -155,7 +156,7 @@ function RandomSpawn(key, x, y, areaRange, R, G, B)
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 50.0, 100.0, 150.0, 200.0, 250.0, 300.0, 350.0, 400.0, 450.0, 500.0 }
+	local groundCheckHeights = { 40.0, 41.0, 42.0, 43.0, 44.0, 45.0, 46.0, 47.0, 48.0, 49.0, 50.0, 100.0, 150.0, 200.0, 250.0, 300.0, 350.0, 400.0, 450.0, 500.0 }
 
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
