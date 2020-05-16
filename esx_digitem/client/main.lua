@@ -96,10 +96,10 @@ function CreateBlips()
 		if v.blips then
 			local bool = true			
 			if bool then
-				zoneblip = AddBlipForRadius(v.x,v.y,v.z, v.areaRange*30.0)
+				zoneblip = AddBlipForRadius(v.x,v.y,v.z, v.areaRange*20.0)
 				SetBlipSprite(zoneblip, 1)
 				SetBlipColour(zoneblip, 16)
-				SetBlipAlpha(zoneblip, 75)	
+				SetBlipAlpha(zoneblip, 120)		
 				
 				v.blip = AddBlipForCoord(v.x, v.y, v.z)
 				SetBlipSprite(v.blip, 483)
