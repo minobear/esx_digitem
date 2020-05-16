@@ -43,7 +43,11 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(5)
 		for k,v in pairs(Place) do
-			DrawMarker(28, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.5, 0.5, 0.5, 204, 102, 0, 100, false, false, 2, false, false, false, false)
+			local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+			local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, v.x, v.y, v.z)	
+			if dist < 50 then
+				DrawMarker(28, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.5, 0.5, 0.5, 204, 102, 0, 100, false, false, 2, false, false, false, false)
+			end
 		end
 		if digging then
 			DisableViolentActions()
@@ -58,7 +62,7 @@ Citizen.CreateThread(function()
 			for k,v in pairs(Place) do
 				local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
 				local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, v.x, v.y, v.z)
-
+				
 				if dist <= 1.3 then
 					for i=1, #Config.Digs do
 						if i == v.key then
