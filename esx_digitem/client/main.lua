@@ -18,6 +18,7 @@ Citizen.CreateThread(function()
 				for i=1, (v.maxSpawn/3) do
 					Wait(100)
 					RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])
+					print(1, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 				end
 			else
 				for i=1, #Place do				
@@ -29,9 +30,11 @@ Citizen.CreateThread(function()
 					for i=1, (v.maxSpawn/3) do
 						Wait(100)
 						RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])
+						print(2, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 					end					
 				elseif count < v.maxSpawn then
 					RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])				
+					print(3, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 				end					
 			end
 		end	
@@ -120,34 +123,37 @@ function CreateBlips()
 	end	
 end
 
-function RandomSpawn(key, x, y, areaRange, R, G, B)	
-	local isGoodPlace = true
+function RandomSpawn(key, x, y, areaRange, R, G, B)
+	if R == nil or G == nil or B == nil then
+	else
+		local isGoodPlace = true
 
-	math.randomseed(GetGameTimer())
-	local ranX = x+(math.random(-areaRange, areaRange))
+		math.randomseed(GetGameTimer())
+		local ranX = x+(math.random(-areaRange, areaRange))
 
-	Citizen.Wait(100)
+		Citizen.Wait(100)
 
-	math.randomseed(GetGameTimer())
-	local ranY = y+(math.random(-areaRange, areaRange))
+		math.randomseed(GetGameTimer())
+		local ranY = y+(math.random(-areaRange, areaRange))
 
-	local ranZ = GetCoordZ(ranX, ranY)
-	if #Place > 0 then
-		for k,v in pairs(Place) do
-			if v.key == key then
-				if GetDistanceBetweenCoords(ranX,ranY,ranZ, v.x,v.y,v.z, true) < 5 then
-					isGoodPlace = false
-					break
+		local ranZ = GetCoordZ(ranX, ranY)
+		if #Place > 0 then
+			for k,v in pairs(Place) do
+				if v.key == key then
+					if GetDistanceBetweenCoords(ranX,ranY,ranZ, v.x,v.y,v.z, true) < 5 then
+						isGoodPlace = false
+						break
+					end
 				end
 			end
-		end
-		if isGoodPlace then
-			table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
+			if isGoodPlace then
+				table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
+			else
+				RandomSpawn(key, x, y, areaRange)
+			end
 		else
-			RandomSpawn(key, x, y, areaRange)
+			table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
 		end
-	else
-		table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
 	end
 end
 
