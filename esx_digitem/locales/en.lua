@@ -1,5 +1,6 @@
 Locales['en'] = {
 	["press_dig"] = "Press ~INPUT_CONTEXT~ to dig ~y~%s",
+	["press_dig_random"] = "Press ~INPUT_CONTEXT~ to dig",
 	["got"] = "You got ~y~%sx ~b~%s",
 	["tool_broken"] = "Your ~y~%s ~s~is broken!",	
 	["no_tools"] = "You have no ~r~%s ~s~to dig",

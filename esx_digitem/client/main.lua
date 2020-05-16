@@ -17,7 +17,7 @@ Citizen.CreateThread(function()
 			if #Place == 0 then
 				for i=1, (v.maxSpawn/3) do
 					Wait(100)
-					RandomSpawn(k, v.x, v.y, v.areaRange)
+					RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 				end
 			else
 				for i=1, #Place do				
@@ -28,10 +28,10 @@ Citizen.CreateThread(function()
 				if count == 0 then
 					for i=1, (v.maxSpawn/3) do
 						Wait(100)
-						RandomSpawn(k, v.x, v.y, v.areaRange)
+						RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 					end					
 				elseif count < v.maxSpawn then
-					RandomSpawn(k, v.x, v.y, v.areaRange)				
+					RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])				
 				end					
 			end
 		end	
@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
 			local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
 			local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, v.x, v.y, v.z)	
 			if dist < 50 then
-				DrawMarker(28, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.5, 0.5, 0.5, 204, 102, 0, 100, false, false, 2, false, false, false, false)
+				DrawMarker(28, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.5, 0.5, 0.5, v.colorR, v.colorG, v.colorB, 200, false, false, 2, false, false, false, false)
 			end
 		end
 		if digging then
@@ -66,7 +66,11 @@ Citizen.CreateThread(function()
 				if dist <= 1.3 then
 					for i=1, #Config.Digs do
 						if i == v.key then
-							hintToDisplay(_U("press_dig", Config.Digs[i].digLabel))					
+							if #Config.Digs[i].digItem == 1 then
+								hintToDisplay(_U("press_dig", Config.Digs[i].digItem[1][3]))	
+							else
+								hintToDisplay(_U("press_dig_random"))	
+							end
 							if IsControlJustReleased (0, 38) then		
 								ESX.TriggerServerCallback("esx_dig:checkTool", function(hasItem)
 									if hasItem then
@@ -76,7 +80,7 @@ Citizen.CreateThread(function()
 										Wait(Config.DigTime)
 										ClearPedTasks(playerPed)
 										digging = false
-										TriggerServerEvent("esx_dig:startDig", Config.Digs[i].breakToolPercent, Config.Digs[i].digLabel, Config.Digs[i].toolLabel, Config.Digs[i].digItem[1], Config.Digs[i].digItem[2], Config.Digs[i].needTool)
+										TriggerServerEvent("esx_dig:startDig", Config.Digs[i].breakToolPercent, Config.Digs[i].digItem, Config.Digs[i].toolLabel, Config.Digs[i].needTool)
 										table.remove(Place, k)
 									else
 										ESX.ShowNotification(_U("no_tools", Config.Digs[i].toolLabel))
@@ -96,10 +100,10 @@ function CreateBlips()
 		if v.blips then
 			local bool = true			
 			if bool then
-				zoneblip = AddBlipForRadius(v.x,v.y,v.z, v.areaRange*20.0)
+				zoneblip = AddBlipForRadius(v.x,v.y,v.z, v.areaRange*25.0)
 				SetBlipSprite(zoneblip, 1)
 				SetBlipColour(zoneblip, 16)
-				SetBlipAlpha(zoneblip, 120)		
+				SetBlipAlpha(zoneblip, 120)	
 				
 				v.blip = AddBlipForCoord(v.x, v.y, v.z)
 				SetBlipSprite(v.blip, 483)
@@ -116,7 +120,7 @@ function CreateBlips()
 	end	
 end
 
-function RandomSpawn(key, x, y, areaRange)	
+function RandomSpawn(key, x, y, areaRange, R, G, B)	
 	local isGoodPlace = true
 
 	math.randomseed(GetGameTimer())
@@ -138,12 +142,12 @@ function RandomSpawn(key, x, y, areaRange)
 			end
 		end
 		if isGoodPlace then
-			table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ})
+			table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
 		else
 			RandomSpawn(key, x, y, areaRange)
 		end
 	else
-		table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ})
+		table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
 	end
 end
 

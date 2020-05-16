@@ -12,15 +12,18 @@ ESX.RegisterServerCallback('esx_dig:checkTool', function(source, cb, needTool)
 end)
 
 RegisterServerEvent('esx_dig:startDig')
-AddEventHandler('esx_dig:startDig', function(breakToolPercent, digLabel, toolLabel, digItem, ItemAmount, needTool)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	local sourceItem = xPlayer.getInventoryItem(digItem)
+AddEventHandler('esx_dig:startDig', function(breakToolPercent, ItemsTable, toolLabel, needTool)
+	local ranItem = math.random(1, #ItemsTable)
+	local digItem = ItemsTable[ranItem]
 	
-	if sourceItem.limit ~= -1 and (sourceItem.count + ItemAmount) > sourceItem.limit then
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U("not_enough_place", ItemAmount, digLabel))
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local sourceItem = xPlayer.getInventoryItem(digItem[1])
+	
+	if sourceItem.limit ~= -1 and (sourceItem.count + digItem[2]) > sourceItem.limit then
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U("not_enough_place", digItem[2], digItem[3]))
 	else
-		xPlayer.addInventoryItem(digItem, ItemAmount)
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U("got", ItemAmount, digLabel))
+		xPlayer.addInventoryItem(digItem[1], digItem[2])
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U("got", digItem[2], digItem[3]))
 		
 		math.randomseed(GetGameTimer())
 		local ranBreak = math.random(1, 100)
