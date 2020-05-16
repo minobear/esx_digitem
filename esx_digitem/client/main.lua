@@ -148,7 +148,7 @@ function RandomSpawn(key, x, y, areaRange)
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 50.0, 100.0, 150.0, 200.0, 250.0, 300.0 }
+	local groundCheckHeights = { 50.0, 100.0, 150.0, 200.0, 250.0, 300.0, 350.0, 400.0, 450.0, 500.0 }
 
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
@@ -156,8 +156,6 @@ function GetCoordZ(x, y)
 			return z
 		end
 	end
-
-	return 43.0
 end
 
 function DisableViolentActions()
