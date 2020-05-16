@@ -156,6 +156,8 @@ function GetCoordZ(x, y)
 			return z
 		end
 	end
+	
+	return 43.0
 end
 
 function DisableViolentActions()
