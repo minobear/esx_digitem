@@ -18,7 +18,6 @@ Citizen.CreateThread(function()
 				for i=1, (v.maxSpawn/3) do
 					Wait(100)
 					RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])
-					print(1, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 				end
 			else
 				for i=1, #Place do				
@@ -30,11 +29,9 @@ Citizen.CreateThread(function()
 					for i=1, (v.maxSpawn/3) do
 						Wait(100)
 						RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])
-						print(2, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 					end					
 				elseif count < v.maxSpawn then
 					RandomSpawn(k, v.x, v.y, v.areaRange, v.markerColor[1], v.markerColor[2], v.markerColor[3])				
-					print(3, v.markerColor[1], v.markerColor[2], v.markerColor[3])
 				end					
 			end
 		end	
