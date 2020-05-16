@@ -10,7 +10,10 @@ Config.DigTime = 10000
 
 Config.Digs = {
 	{
-		digItem = {{"clam", 1, "蛤蠣"}, {"stone", 1, "石頭"}}, needTool = "shovel", toolLabel = "鏟子",
+		-- If you want to use random item please follow this example:
+		-- digItem = {{"clam", 1, "蛤蠣"}, {"stone", 1, "石頭"}, ...},
+		
+		digItem = {{"clam", 1, "蛤蠣"}}, needTool = "shovel", toolLabel = "鏟子",
 		x = -2165.57, y = -462.55, areaRange = 8, maxSpawn = 10, markerColor = {255, 179, 102},
 		breakToolPercent = 10, blips = true, blipName = "蛤蠣挖掘區"
 	},
