@@ -138,22 +138,26 @@ function RandomSpawn(key, x, y, z, areaRange, R, G, B)
 			local ranY = y+(math.random(-areaRange, areaRange))
 
 			local ranZ = GetCoordZ(ranX, ranY)
-			if #Place > 0 then
-				for k,v in pairs(Place) do
-					if v.key == key then
-						if GetDistanceBetweenCoords(ranX,ranY,ranZ, v.x,v.y,v.z, true) < 5 then
-							isGoodPlace = false
-							break
+			if ranZ ~= nil then
+				if #Place > 0 then
+					for k,v in pairs(Place) do
+						if v.key == key then
+							if GetDistanceBetweenCoords(ranX,ranY,ranZ, v.x,v.y,v.z, true) < 5 then
+								isGoodPlace = false
+								break
+							end
 						end
 					end
-				end
-				if isGoodPlace then
-					table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
+					if isGoodPlace then
+						table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
+					else
+						RandomSpawn(key, x, y, areaRange)
+					end
 				else
-					RandomSpawn(key, x, y, areaRange)
+					table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
 				end
 			else
-				table.insert(Place, {key = key, x = ranX, y = ranY, z = ranZ, colorR = R, colorG = G, colorB = B})
+				print("not found ground coord Z")
 			end
 		end
 	end
@@ -169,7 +173,7 @@ function GetCoordZ(x, y)
 		end
 	end
 	
-	return 43.0
+	return nil
 end
 
 function DisableViolentActions()
